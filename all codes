@@ -31,6 +31,10 @@ class Employee{
 }
 
 public class JavaStreamPractice {
+    @FunctionalInterface
+    interface Operation{
+        double apply(double a, double b);
+    }
     public static void main(String[] args) throws Exception {
 
         //List Transformation
@@ -39,6 +43,7 @@ public class JavaStreamPractice {
                 .map(element -> element*element)                       //mapping elements
                 .filter(element -> element%2==0)                       //filter even elements
                 .forEach(element -> System.out.print(element+" "));    //printing elements
+        System.out.println();
         System.out.println();
 
 
@@ -55,6 +60,67 @@ public class JavaStreamPractice {
         System.out.println();
 
 
-        //
+        //Calculator
+        Operation add=(a,b) -> a+b;
+        Operation sub=(a,b) -> a-b;
+        Operation mul=(a,b) -> a*b;
+        Operation div=(a,b) -> {
+            if(b==0){
+                throw new ArithmeticException("Division by zero");
+            }
+            return a/b;
+        };
+
+        Scanner scanner=new Scanner(System.in);
+
+        System.out.println("**** CALCULATOR ****");
+        System.out.println("Choose an operation:- \n 1. ADD \n 2. SUBTRACT \n 3. MULTIPLY \n 4. DIVIDE");
+        int choice =scanner.nextInt();
+
+        System.out.print("Enter first no: ");
+        int num1=scanner.nextInt();
+        System.out.print("Enter second no: ");
+        int num2=scanner.nextInt();
+
+        double result=0;
+
+        try{
+            switch(choice){
+                case 1:
+                    result = add.apply(num1,num2);
+                    break;
+                case 2:
+                    result = sub.apply(num1,num2);
+                    break;
+                case 3:
+                    result = mul.apply(num1,num2);
+                    break;
+                case 4:
+                    result = div.apply(num1,num2);
+                    break;
+                default:
+                    System.out.println("Invalid choice");
+                    return;
+            }
+            System.out.println("Result: "+result);
+        }
+        catch(ArithmeticException e){
+            System.out.println("Error! "+e.getMessage());
+        }
+
+
+        //Map Transformation
+        Map<String,Integer> map=new HashMap<>();
+        map.put("One",1);
+        map.put("Two",2);
+        map.put("Three",3);
+
+        map.replaceAll((key,value) -> value * value);
+        map.forEach((key,value)-> System.out.println(key+" : "+value));
+
+
+        //Student Filtering
+
+
     }
 }
