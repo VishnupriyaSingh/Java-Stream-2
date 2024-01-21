@@ -103,9 +103,11 @@ public class JavaStreamPractice {
                     return;
             }
             System.out.println("Result: "+result);
+            System.out.println();
         }
         catch(ArithmeticException e){
             System.out.println("Error! "+e.getMessage());
+            System.out.println();
         }
 
 
@@ -117,10 +119,23 @@ public class JavaStreamPractice {
 
         map.replaceAll((key,value) -> value * value);
         map.forEach((key,value)-> System.out.println(key+" : "+value));
+        System.out.println();
 
 
         //Student Filtering
 
 
+        //Stream Operations
+        List<String> strings=Arrays.asList("Helloo","World","Energy","to","change","the","world","General","Electric");
+
+        strings.stream()
+                .filter(s-> s.length()>5)
+                .map(String::toUpperCase)
+                .forEach(System.out::println);
+        System.out.println();
+
+
+        //Palindrome Strings
+        
     }
 }
